@@ -9,27 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppController = void 0;
+exports.AppService = void 0;
 const common_1 = require("@nestjs/common");
-const app_service_1 = require("./app.service");
-const microservices_1 = require("@nestjs/microservices");
-let AppController = class AppController {
-    constructor(appService) {
-        this.appService = appService;
+const prisma_service_1 = require("./prisma/prisma.service");
+let AppService = class AppService {
+    constructor(prisma) {
+        this.prisma = prisma;
     }
     findAll() {
-        return this.appService.findAll();
+        return 'Hello World! from user service';
+    }
+    async createUser(data) {
+        return await this.prisma.user.create({
+            data,
+        });
+    }
+    async findAllUsers() {
+        return this.prisma.user.findMany();
     }
 };
-exports.AppController = AppController;
-__decorate([
-    (0, microservices_1.MessagePattern)('findAll'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], AppController.prototype, "findAll", null);
-exports.AppController = AppController = __decorate([
-    (0, common_1.Controller)(),
-    __metadata("design:paramtypes", [app_service_1.AppService])
-], AppController);
-//# sourceMappingURL=app.controller.js.map
+exports.AppService = AppService;
+exports.AppService = AppService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+], AppService);
+//# sourceMappingURL=app.service.js.map
